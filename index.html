@@ -216,7 +216,7 @@
         .qa-item:last-child { border-bottom: none; }
         .qa-item strong { color: var(--accent-secondary); font-size: 1.05rem; display: block; margin-bottom: 8px; }
 
-        /* NEW: Project Gallery Filters */
+        /* Project Gallery Filters */
         .gallery-header { margin-bottom: 30px; }
         .gallery-header h2 { font-size: 2rem; margin-bottom: 10px; color: var(--text-main); }
         .gallery-header p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
@@ -235,7 +235,7 @@
         .filter-pill:hover { border-color: var(--accent-secondary); color: var(--text-main); }
         .filter-pill.active { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(59, 130, 246, 0.1); }
 
-        /* NEW: Clickable Project Cards */
+        /* Clickable Project Cards */
         .project-card { cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
         .project-card:hover {
             transform: translateY(-5px);
@@ -246,7 +246,7 @@
         .tag-container { display: flex; gap: 8px; margin-top: 20px; }
         .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border-color); color: var(--accent-secondary); }
 
-        /* NEW: Modal Styles */
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -310,26 +310,28 @@
             border-right: 1px solid var(--border-color);
         }
         .modal-cell.value { color: var(--text-main); line-height: 1.7; }
-        .modal-footer { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
-
-        /* ADDED: Styling for evidence links */
+        
+        /* NEW: Styling for Evidence Links inside the modal */
         .evidence-link {
+            display: inline-flex;
+            align-items: center;
             color: var(--accent-secondary);
             text-decoration: none;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            transition: all 0.2s ease;
-            display: inline-block;
-            margin: 2px 4px 2px 0;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.05);
+            transition: all 0.2s;
         }
         .evidence-link:hover {
-            background: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.15);
             color: #fff;
             border-color: var(--accent-primary);
         }
+
+        .modal-footer { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
 
     </style>
 </head>
@@ -540,7 +542,6 @@
                 </div>
                 <div class="modal-row">
                     <div class="modal-cell label">Evidence</div>
-                    <!-- CHANGED: Will now render innerHTML instead of plain text -->
                     <div class="modal-cell value" id="m-evidence">Links go here</div>
                 </div>
                 <div class="modal-row">
@@ -550,7 +551,7 @@
             </div>
             
             <div class="modal-footer">
-                Student note: Evidence links would typically route to GitHub repositories or embedded video demonstrations.
+                Student note: Evidence links route to full image views or external repositories.
             </div>
         </div>
     </div>
@@ -595,14 +596,15 @@
         }
 
         // Modal Data & Logic
-        // CHANGED: Replaced plain text strings with HTML <a> tags in the 'evidence' properties
+        // NOTE: I replaced plain text with HTML anchor <a> tags in the 'evidence' properties below.
         const projectData = {
             'vred': {
                 title: 'VRED (VR Analysis Project)',
                 desc: 'An immersive behavioral analysis tool developed and deployed specifically for Android-based VR Box hardware.',
                 tools: 'Unity 3D, Blender, C#, Android SDK',
                 skills: 'High-level logical scripting, behavioral metric tracking (proximity and avoidance frequencies), system and hardware optimization.',
-                evidence: '<a href="#" class="evidence-link" target="_blank">GitHub Repository Link</a> <a href="#" class="evidence-link" target="_blank">Demo Video (MP4)</a> <a href="#" class="evidence-link" target="_blank">APK File</a>',
+                // Insert your image links inside the href attribute below:
+                evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View Project Screenshot</a> <a href="INSERT_YOUR_VIDEO_LINK_HERE.mp4" target="_blank" class="evidence-link">🎥 View Demo Video</a>',
                 reflection: 'This project strengthened my understanding of how software logic directly impacts hardware performance. Developing behavioral metrics required a meticulous, systematic approach to debugging—a methodology that translates directly into identifying vulnerabilities and troubleshooting in a security context.'
             },
             'kias': {
@@ -610,7 +612,8 @@
                 desc: 'A digital educational system featuring clean graphic interaction design and structured content delivery.',
                 tools: 'Figma, HTML, CSS, JavaScript',
                 skills: 'Graphic interaction design, UI translation of complex concepts, responsive layout structuring.',
-                evidence: '<a href="#" class="evidence-link" target="_blank">Live Website URL</a> <a href="#" class="evidence-link" target="_blank">UI Mockups</a> <a href="#" class="evidence-link" target="_blank">User Flow Diagrams</a>',
+                // Insert your image links inside the href attribute below:
+                evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View UI Design Image</a>',
                 reflection: 'This project showcased my ability to translate complex concepts into accessible user interfaces. I learned the importance of clear visual hierarchy and user-friendly navigation, skills essential for designing secure, accessible internal IT portals.'
             },
             'island': {
@@ -618,7 +621,8 @@
                 desc: 'A PC-based exploration application demonstrating advanced 3D environmental mapping and animation.',
                 tools: 'Autodesk Maya, Unity, Particle Systems',
                 skills: 'Keyframe logic programming, artifact-based data mapping, spatial problem solving.',
-                evidence: '<a href="#" class="evidence-link" target="_blank">Executable File (.exe)</a> <a href="#" class="evidence-link" target="_blank">Development Screenshots</a> <a href="#" class="evidence-link" target="_blank">Rigging Documentation</a>',
+                // Insert your image links inside the href attribute below:
+                evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View 3D Render Image</a>',
                 reflection: 'Mastering keyframe logic and complex rigging constraints taught me relentless problem-solving and self-education. Building this environment from scratch required the same technical curiosity needed to map and secure enterprise network topographies.'
             }
         };
@@ -629,8 +633,10 @@
             document.getElementById('m-desc').innerText = data.desc;
             document.getElementById('m-tools').innerText = data.tools;
             document.getElementById('m-skills').innerText = data.skills;
-            // CHANGED: Using innerHTML here so the <a> tags render as actual links instead of text
+            
+            // NOTE: Changed from innerText to innerHTML to render the clickable <a> tags
             document.getElementById('m-evidence').innerHTML = data.evidence;
+            
             document.getElementById('m-reflection').innerText = data.reflection;
             
             document.getElementById('project-modal').classList.add('show');
