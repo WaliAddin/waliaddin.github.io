@@ -3,213 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive E-Portfolio | Network Security</title>
+    <title>Fazri Lukman | IT & Network Security Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
         :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --accent-primary: #10b981; /* Emerald Green */
-            --accent-secondary: #3b82f6; /* Blue */
+            /* Blue Theme Colors */
+            --bg-base: #050b14;
+            --bg-surface: #0a1324;
+            --bg-card: #111e36;
+            --accent-primary: #3b82f6; /* Bright Blue */
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --accent-secondary: #60a5fa; /* Light Blue */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --border-color: rgba(59, 130, 246, 0.2);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-base);
             color: var(--text-main);
             line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, #0d1b2a 0%, var(--bg-base) 40%);
         }
 
-        /* Sidebar Navigation */
+        /* Top Navigation */
         nav {
-            width: 280px;
-            background-color: var(--bg-card);
-            padding: 30px 20px;
             display: flex;
-            flex-direction: column;
-            border-right: 1px solid #334155;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(10, 19, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .profile-section {
-            text-align: center;
-            margin-bottom: 40px;
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
         }
 
-        .profile-section h2 {
-            color: var(--accent-primary);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
 
-        .profile-section p {
+        .nav-links a {
             color: var(--text-muted);
+            text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        /* Tech/System Dashboard Element (Inspired by video) */
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .system-circles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+        }
+
+        .circle-1 { width: 140px; height: 140px; border-top-color: var(--accent-primary); animation: spin 4s linear infinite; }
+        .circle-2 { width: 100px; height: 100px; border-right-color: var(--accent-secondary); animation: spin 3s linear infinite reverse; }
+        .circle-3 { width: 60px; height: 60px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;}
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .system-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .stat-item h4 { font-size: 0.8rem; color: var(--text-muted); }
+        .stat-item p { font-size: 1.2rem; font-weight: bold; color: var(--text-main); }
+
+        /* Main Content & Tabs */
+        .portfolio-section {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 50px;
+        }
+
+        .tab-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
-            background: transparent;
+            background: var(--bg-surface);
             color: var(--text-muted);
-            border: none;
-            padding: 15px;
-            text-align: left;
-            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
+            transition: all 0.3s;
         }
 
         .tab-btn:hover {
-            background-color: #334155;
+            border-color: var(--accent-primary);
             color: var(--text-main);
         }
 
         .tab-btn.active {
-            background-color: var(--accent-primary);
+            background: var(--accent-primary);
             color: #fff;
-            font-weight: bold;
-        }
-
-        /* Main Content Area */
-        main {
-            flex: 1;
-            padding: 50px;
-            overflow-y: auto;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes fadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 {
-            color: var(--text-main);
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            border-bottom: 2px solid var(--accent-secondary);
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-
-        h3 {
-            color: var(--accent-primary);
-            margin: 25px 0 15px;
+        /* Cards inside Tabs */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .card {
-            background-color: var(--bg-card);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--accent-secondary);
-            transition: transform 0.2s ease;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
-            transform: translateX(5px);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow);
+            border-color: var(--accent-primary);
         }
 
-        ul {
-            margin-left: 20px;
-            color: var(--text-muted);
+        .card h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
-        li {
-            margin-bottom: 10px;
-        }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+        .card ul { margin-left: 20px; color: var(--text-muted); margin-top: 10px; font-size: 0.95rem; }
+        .card li { margin-bottom: 8px; }
 
         /* Interactive Skill Bars */
-        .skill-container {
-            margin-bottom: 15px;
-        }
+        .skill-container { margin-bottom: 20px; }
+        .skill-name { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;}
+        .skill-bar { width: 100%; background: #1e293b; border-radius: 10px; height: 8px; overflow: hidden; }
+        .skill-progress { height: 100%; background: var(--accent-primary); border-radius: 10px; transition: width 1.5s ease-in-out; box-shadow: 0 0 10px var(--accent-primary); }
 
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            color: var(--text-main);
-        }
+        /* QA Block */
+        .qa-item { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .qa-item:last-child { border-bottom: none; }
+        .qa-item strong { color: var(--text-main); font-size: 1.05rem; display: block; margin-bottom: 8px; }
 
-        .skill-bar {
-            width: 100%;
-            background-color: #334155;
-            border-radius: 5px;
-            height: 10px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background-color: var(--accent-primary);
-            border-radius: 5px;
-            width: 0; /* Animated via inline style */
-            transition: width 1s ease-in-out;
-        }
-
-        /* QA Accordion */
-        .qa-block strong {
-            display: block;
-            margin-top: 20px;
-            color: var(--accent-secondary);
-            font-size: 1.1rem;
-        }
-
-        .qa-block p {
-            color: var(--text-muted);
-            margin-top: 8px;
-            padding-left: 15px;
-            border-left: 2px solid #334155;
-        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="profile-section">
-            <h2>UniSZA IT Student</h2>
-            <p>Positioning for a Future in Network Security & IT Support</p>
+        <div class="logo">IT & SEC PORTFOLIO</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Contact</a>
         </div>
-        <button class="tab-btn active" onclick="openTab(event, 'intro')">Overview</button>
-        <button class="tab-btn" onclick="openTab(event, 'exploration')">1. Career Exploration</button>
-        <button class="tab-btn" onclick="openTab(event, 'skills')">2. Skills Assessment</button>
-        <button class="tab-btn" onclick="openTab(event, 'plan')">3. Development Plan</button>
-        <button class="tab-btn" onclick="openTab(event, 'evidence')">4. Evidence of Learning</button>
-        <button class="tab-btn" onclick="openTab(event, 'reflection')">5. Personal Reflection</button>
     </nav>
 
-    <main>
-        <div id="intro" class="tab-content active">
-            <h1>Personal Career Portfolio</h1>
-            <div class="card">
-                <p>I am a final-year Bachelor of Information Technology student specializing in Informatic Media at Universiti Sultan Zainal Abidin (UniSZA). As I prepare for my upcoming 2026 industry internship in Sungai Petani, Kedah, this interactive portfolio outlines my strategic transition into secure IT infrastructure and support roles.</p>
-                <p style="margin-top: 15px; color: var(--accent-primary);"><em>Select the tabs on the left to navigate through my career plan.</em></p>
+    <div class="hero">
+        <div class="hero-text">
+            <h1>IT Support &<br>Network Security</h1>
+            <p>I am a final-year Bachelor of Information Technology student specializing in Informatic Media at UniSZA. Preparing for my 2026 industry internship in Sungai Petani, Kedah, this portfolio outlines my strategic transition into secure IT infrastructure.</p>
+        </div>
+        
+        <div class="system-card">
+            <div class="system-header">
+                <span>System Ready</span>
+                <span>Online</span>
+            </div>
+            <div class="system-circles">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3">SECURE</div>
+            </div>
+            <div class="system-stats">
+                <div class="stat-item">
+                    <h4>MODULES</h4>
+                    <p>05 Loaded</p>
+                </div>
+                <div class="stat-item">
+                    <h4>LATENCY</h4>
+                    <p>12ms</p>
+                </div>
+                <div class="stat-item">
+                    <h4>STATUS</h4>
+                    <p style="color: var(--accent-primary);">Stable</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div id="exploration" class="tab-content">
-            <h1>Career Exploration</h1>
-            <h3>Selected Role: IT Support with Security Role</h3>
+    <div class="portfolio-section">
+        
+        <div class="tab-controls">
+            <button class="tab-btn active" onclick="openTab(event, 'exploration')">Career Exploration</button>
+            <button class="tab-btn" onclick="openTab(event, 'skills')">Skills Assessment</button>
+            <button class="tab-btn" onclick="openTab(event, 'plan')">Development Plan</button>
+            <button class="tab-btn" onclick="openTab(event, 'evidence')">Evidence of Learning</button>
+            <button class="tab-btn" onclick="openTab(event, 'reflection')">Personal Reflection</button>
+        </div>
+
+        <div id="exploration" class="tab-content active">
             <div class="card">
+                <h3>Selected Role: IT Support with Security Role</h3>
                 <p>While my academic foundation is rooted in multimedia and software development, I am targeting a career in IT Support integrated with security operations.</p>
                 <br>
                 <p><strong>Relevance to Modern Cybersecurity:</strong> IT Support professionals act as the critical first line of defense. Their responsibilities include managing access controls, ensuring secure endpoint configurations, troubleshooting network anomalies, and escalating security alerts. My extensive background in diagnosing complex software logic and troubleshooting intricate hardware systems positions me perfectly to handle the analytical demands of modern IT infrastructure.</p>
@@ -217,114 +317,115 @@
         </div>
 
         <div id="skills" class="tab-content">
-            <h1>Personal Skills Assessment</h1>
-            
-            <h3>Interactive Skills Overview</h3>
-            <div class="card">
-                <div class="skill-container">
-                    <div class="skill-name"><span>3D Development (Unity/Blender)</span><span>85%</span></div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Technical Proficiency</h3>
+                    <div class="skill-container">
+                        <div class="skill-name"><span>3D Development (Unity/Blender)</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-name"><span>Hardware Diagnostics</span><span>80%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-name"><span>Networking Protocols</span><span>40%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 40%; background: var(--accent-secondary);"></div></div>
+                    </div>
                 </div>
-                <div class="skill-container">
-                    <div class="skill-name"><span>Hardware Troubleshooting & Diagnostics</span><span>80%</span></div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                <div class="card">
+                    <h3>Soft Skills & Gap Analysis</h3>
+                    <p><strong>Soft Skills:</strong> Strong teamwork and communication abilities, cultivated through coordinating large-scale academic group projects and gathering analytical peer feedback.</p>
+                    <br>
+                    <p><strong>Industry Gap:</strong> While I excel in application-level troubleshooting and logic design, the cybersecurity industry requires specialized knowledge in network protocols and threat mitigation. I am actively bridging the gap between generalized IT troubleshooting and specialized network defense.</p>
                 </div>
-                <div class="skill-container">
-                    <div class="skill-name"><span>Teamwork & Communication</span><span>90%</span></div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
-                </div>
-                <div class="skill-container">
-                    <div class="skill-name"><span>Networking Protocols (Bridging the gap)</span><span>40%</span></div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 40%; background-color: var(--accent-secondary);"></div></div>
-                </div>
-            </div>
-
-            <h3>Current Skills vs. Industry Requirements</h3>
-            <div class="card">
-                <p>While I excel in application-level troubleshooting and logic design, the cybersecurity industry requires specialized knowledge in network protocols and threat mitigation. I am actively bridging the gap between generalized IT troubleshooting and specialized network defense.</p>
             </div>
         </div>
 
         <div id="plan" class="tab-content">
-            <h1>Career Development Plan</h1>
-            <div class="card">
-                <h3>Target Certifications & Tools</h3>
-                <ul>
-                    <li><strong>Certifications:</strong> CompTIA Security+ (baseline defense) and CCNA (networking fundamentals).</li>
-                    <li><strong>Tools to Master:</strong> Wireshark (packet analysis), Linux (server administration), and Python (automation).</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3>Timeline</h3>
-                <ul>
-                    <li><strong>Short-Term Goal (2 Years):</strong> Secure an IT Support internship and subsequent junior role in the Kedah region. Focus on applying enterprise-level troubleshooting while obtaining the Security+ certification.</li>
-                    <li><strong>Long-Term Goal (5 Years):</strong> Transition into a dedicated System Administrator or Security Analyst role, specializing in securing enterprise networks and integrating secure practices into multimedia pipelines.</li>
-                </ul>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Target Certifications & Tools</h3>
+                    <ul>
+                        <li><strong>Certifications:</strong> CompTIA Security+ (baseline defense) and CCNA (networking fundamentals).</li>
+                        <li><strong>Tools to Master:</strong> Wireshark (packet analysis), Linux (server administration), and Python (automation).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Career Timeline</h3>
+                    <ul>
+                        <li><strong>Short-Term Goal (2 Years):</strong> Secure an IT Support internship and subsequent junior role in the Kedah region. Focus on applying enterprise-level troubleshooting while obtaining the Security+ certification.</li>
+                        <li><strong>Long-Term Goal (5 Years):</strong> Transition into a dedicated System Administrator or Security Analyst role, specializing in securing enterprise networks.</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div id="evidence" class="tab-content">
-            <h1>Evidence of Learning</h1>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">My completed projects demonstrate a strong foundation in structured problem-solving and software lifecycle management:</p>
-            
-            <div class="card">
-                <h3>VRED (Virtual Reality Analysis Project)</h3>
-                <p>Developed an immersive behavioral analysis tool utilizing Unity and Blender, specifically deployed for Android-based VR Box hardware. Engineered behavioral metrics to assess user proximity and avoidance frequencies, demonstrating high-level logical scripting.</p>
-            </div>
-            
-            <div class="card">
-                <h3>Forgotten Island & Cleaning the Room</h3>
-                <p>Designed a PC-based exploration application and comprehensive 3D animations, mastering keyframe logic, particle systems, and artifact-based data mapping.</p>
-            </div>
-            
-            <div class="card">
-                <h3>KIAS Digital Preservation</h3>
-                <p>Developed a digital educational system featuring clean graphic interaction design, showcasing my ability to translate complex concepts into accessible user interfaces.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>VRED (VR Analysis)</h3>
+                    <p>Developed an immersive behavioral analysis tool utilizing Unity and Blender, deployed for Android-based VR Box hardware. Engineered behavioral metrics to assess user proximity and avoidance frequencies.</p>
+                </div>
+                <div class="card">
+                    <h3>Forgotten Island</h3>
+                    <p>Designed a PC-based exploration application and comprehensive 3D animations, mastering keyframe logic, particle systems, and artifact-based data mapping.</p>
+                </div>
+                <div class="card">
+                    <h3>KIAS Preservation</h3>
+                    <p>Developed a digital educational system featuring clean graphic interaction design, showcasing my ability to translate complex concepts into accessible user interfaces.</p>
+                </div>
             </div>
         </div>
 
         <div id="reflection" class="tab-content">
-            <h1>Personal Reflection</h1>
-            <h3>Target Company: Intel Malaysia (Kulim Campus)</h3>
-            
-            <div class="card qa-block">
-                <strong>Why do you want to work for this company?</strong>
-                <p>Given my goal to build a career in the Northern region, Intel represents the pinnacle of technology infrastructure. Their commitment to robust hardware and secure internal networks perfectly aligns with my transition from software interaction to IT security support.</p>
+            <div class="card">
+                <h3 style="margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">Target Company: Intel Malaysia (Kulim Campus)</h3>
                 
-                <strong>What value can you bring to this company?</strong>
-                <p>I bring a highly adaptable, logical mindset. My experience building complex VR interactions requires a meticulous, systematic approach to debugging—a methodology that translates directly into identifying network vulnerabilities and troubleshooting enterprise hardware.</p>
+                <div class="qa-item">
+                    <strong>Why do you want to work for this company?</strong>
+                    <p>Given my goal to build a career in the Northern region, Intel represents the pinnacle of technology infrastructure. Their commitment to robust hardware and secure internal networks perfectly aligns with my transition from software interaction to IT security support.</p>
+                </div>
                 
-                <strong>Why should we hire you?</strong>
-                <p>I am a relentless problem solver with a proven track record of self-education. Whether mastering complex rigging constraints, optimizing Android deployments, or independently learning manual motorcycle maintenance, I possess the technical curiosity required to excel in IT support.</p>
+                <div class="qa-item">
+                    <strong>What value can you bring to this company?</strong>
+                    <p>I bring a highly adaptable, logical mindset. My experience building complex VR interactions requires a meticulous, systematic approach to debugging—translating directly into identifying network vulnerabilities and troubleshooting enterprise hardware.</p>
+                </div>
                 
-                <strong>What skills make you suitable for this job?</strong>
-                <p>My foundation in user-focused software development, combined with deep hardware curiosity (from PC builds to mobile storage architecture), ensures I can effectively communicate with end-users while rapidly diagnosing backend technical issues.</p>
+                <div class="qa-item">
+                    <strong>Why should we hire you?</strong>
+                    <p>I am a relentless problem solver with a proven track record of self-education. Whether mastering complex rigging constraints, optimizing Android deployments, or independently learning manual motorcycle maintenance, I possess the technical curiosity required to excel in IT support.</p>
+                </div>
                 
-                <strong>What are your strengths and weaknesses?</strong>
-                <p>My primary strength is technical adaptability and precise attention to detail. My current weakness is a lack of enterprise-grade security experience; however, my structured career development plan and commitment to earning the Security+ certification demonstrate my proactive approach to overcoming this gap.</p>
+                <div class="qa-item">
+                    <strong>What are your strengths and weaknesses?</strong>
+                    <p>My primary strength is technical adaptability and precise attention to detail. My current weakness is a lack of enterprise-grade security experience; however, my structured career development plan and commitment to earning the Security+ certification demonstrate my proactive approach to overcoming this gap.</p>
+                </div>
             </div>
         </div>
-    </main>
+
+    </div>
 
     <script>
         function openTab(evt, tabName) {
-            // Hide all tab content
             let tabContent = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabContent.length; i++) {
                 tabContent[i].style.display = "none";
                 tabContent[i].classList.remove("active");
             }
 
-            // Remove active class from all buttons
             let tabBtns = document.getElementsByClassName("tab-btn");
             for (let i = 0; i < tabBtns.length; i++) {
                 tabBtns[i].classList.remove("active");
             }
 
-            // Show current tab and add active class to clicked button
             document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
+            
+            // Add a tiny delay for the animation to reset properly
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
+            
             evt.currentTarget.classList.add("active");
         }
     </script>
