@@ -312,6 +312,25 @@
         .modal-cell.value { color: var(--text-main); line-height: 1.7; }
         .modal-footer { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
 
+        /* ADDED: Styling for evidence links */
+        .evidence-link {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 2px 4px 2px 0;
+        }
+        .evidence-link:hover {
+            background: var(--accent-primary);
+            color: #fff;
+            border-color: var(--accent-primary);
+        }
+
     </style>
 </head>
 <body>
@@ -521,6 +540,7 @@
                 </div>
                 <div class="modal-row">
                     <div class="modal-cell label">Evidence</div>
+                    <!-- CHANGED: Will now render innerHTML instead of plain text -->
                     <div class="modal-cell value" id="m-evidence">Links go here</div>
                 </div>
                 <div class="modal-row">
@@ -575,13 +595,14 @@
         }
 
         // Modal Data & Logic
+        // CHANGED: Replaced plain text strings with HTML <a> tags in the 'evidence' properties
         const projectData = {
             'vred': {
                 title: 'VRED (VR Analysis Project)',
                 desc: 'An immersive behavioral analysis tool developed and deployed specifically for Android-based VR Box hardware.',
                 tools: 'Unity 3D, Blender, C#, Android SDK',
                 skills: 'High-level logical scripting, behavioral metric tracking (proximity and avoidance frequencies), system and hardware optimization.',
-                evidence: 'GitHub Repository Link, Demo Video (MP4), APK File',
+                evidence: '<a href="#" class="evidence-link" target="_blank">GitHub Repository Link</a> <a href="#" class="evidence-link" target="_blank">Demo Video (MP4)</a> <a href="#" class="evidence-link" target="_blank">APK File</a>',
                 reflection: 'This project strengthened my understanding of how software logic directly impacts hardware performance. Developing behavioral metrics required a meticulous, systematic approach to debugging—a methodology that translates directly into identifying vulnerabilities and troubleshooting in a security context.'
             },
             'kias': {
@@ -589,7 +610,7 @@
                 desc: 'A digital educational system featuring clean graphic interaction design and structured content delivery.',
                 tools: 'Figma, HTML, CSS, JavaScript',
                 skills: 'Graphic interaction design, UI translation of complex concepts, responsive layout structuring.',
-                evidence: 'Live Website URL, UI Mockups, User Flow Diagrams',
+                evidence: '<a href="#" class="evidence-link" target="_blank">Live Website URL</a> <a href="#" class="evidence-link" target="_blank">UI Mockups</a> <a href="#" class="evidence-link" target="_blank">User Flow Diagrams</a>',
                 reflection: 'This project showcased my ability to translate complex concepts into accessible user interfaces. I learned the importance of clear visual hierarchy and user-friendly navigation, skills essential for designing secure, accessible internal IT portals.'
             },
             'island': {
@@ -597,7 +618,7 @@
                 desc: 'A PC-based exploration application demonstrating advanced 3D environmental mapping and animation.',
                 tools: 'Autodesk Maya, Unity, Particle Systems',
                 skills: 'Keyframe logic programming, artifact-based data mapping, spatial problem solving.',
-                evidence: 'https://youtu.be/5rSYsMMOCmI?si=OkWl1OpZ0N-LBm92',
+                evidence: '<a href="#" class="evidence-link" target="_blank">Executable File (.exe)</a> <a href="#" class="evidence-link" target="_blank">Development Screenshots</a> <a href="#" class="evidence-link" target="_blank">Rigging Documentation</a>',
                 reflection: 'Mastering keyframe logic and complex rigging constraints taught me relentless problem-solving and self-education. Building this environment from scratch required the same technical curiosity needed to map and secure enterprise network topographies.'
             }
         };
@@ -608,7 +629,8 @@
             document.getElementById('m-desc').innerText = data.desc;
             document.getElementById('m-tools').innerText = data.tools;
             document.getElementById('m-skills').innerText = data.skills;
-            document.getElementById('m-evidence').innerText = data.evidence;
+            // CHANGED: Using innerHTML here so the <a> tags render as actual links instead of text
+            document.getElementById('m-evidence').innerHTML = data.evidence;
             document.getElementById('m-reflection').innerText = data.reflection;
             
             document.getElementById('project-modal').classList.add('show');
