@@ -18,6 +18,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(59, 130, 246, 0.2);
+            --modal-bg: #0d172a;
         }
 
         * {
@@ -101,7 +102,7 @@
             margin-bottom: 30px;
         }
 
-        /* Tech/System Dashboard Element (Inspired by video) */
+        /* Tech/System Dashboard Element */
         .system-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -132,12 +133,7 @@
             margin-bottom: 30px;
         }
 
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-        }
-
+        .circle { position: absolute; border-radius: 50%; border: 1px solid var(--border-color); }
         .circle-1 { width: 140px; height: 140px; border-top-color: var(--accent-primary); animation: spin 4s linear infinite; }
         .circle-2 { width: 100px; height: 100px; border-right-color: var(--accent-secondary); animation: spin 3s linear infinite reverse; }
         .circle-3 { width: 60px; height: 60px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;}
@@ -181,34 +177,15 @@
             transition: all 0.3s;
         }
 
-        .tab-btn:hover {
-            border-color: var(--accent-primary);
-            color: var(--text-main);
-        }
+        .tab-btn:hover { border-color: var(--accent-primary); color: var(--text-main); }
+        .tab-btn.active { background: var(--accent-primary); color: #fff; border-color: var(--accent-primary); box-shadow: 0 0 15px var(--accent-glow); }
 
-        .tab-btn.active {
-            background: var(--accent-primary);
-            color: #fff;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+        .tab-content { display: none; animation: fadeUp 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        .tab-content.active { display: block; }
 
-        .tab-content {
-            display: none;
-            animation: fadeUp 0.5s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards inside Tabs */
+        /* General Cards */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -216,25 +193,14 @@
         }
 
         .card {
-            background: var(--bg-card);
+            background: linear-gradient(180deg, rgba(17, 30, 54, 0.8) 0%, rgba(10, 19, 36, 0.9) 100%);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 30px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow);
-            border-color: var(--accent-primary);
-        }
-
-        .card h3 {
-            color: var(--accent-secondary);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
+        .card h3 { color: var(--text-main); margin-bottom: 15px; font-size: 1.2rem; font-weight: 600; }
         .card p { color: var(--text-muted); font-size: 0.95rem; }
         .card ul { margin-left: 20px; color: var(--text-muted); margin-top: 10px; font-size: 0.95rem; }
         .card li { margin-bottom: 8px; }
@@ -248,7 +214,103 @@
         /* QA Block */
         .qa-item { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
         .qa-item:last-child { border-bottom: none; }
-        .qa-item strong { color: var(--text-main); font-size: 1.05rem; display: block; margin-bottom: 8px; }
+        .qa-item strong { color: var(--accent-secondary); font-size: 1.05rem; display: block; margin-bottom: 8px; }
+
+        /* NEW: Project Gallery Filters */
+        .gallery-header { margin-bottom: 30px; }
+        .gallery-header h2 { font-size: 2rem; margin-bottom: 10px; color: var(--text-main); }
+        .gallery-header p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .project-filters { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-pill {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-pill:hover { border-color: var(--accent-secondary); color: var(--text-main); }
+        .filter-pill.active { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(59, 130, 246, 0.1); }
+
+        /* NEW: Clickable Project Cards */
+        .project-card { cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow);
+            border-color: var(--accent-primary);
+        }
+        .project-icon { font-size: 2.5rem; text-align: center; margin-bottom: 20px; color: var(--accent-primary); }
+        .tag-container { display: flex; gap: 8px; margin-top: 20px; }
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border-color); color: var(--accent-secondary); }
+
+        /* NEW: Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 11, 20, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show { display: flex; opacity: 1; }
+        
+        .modal-content {
+            background: var(--modal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .modal-overlay.show .modal-content { transform: translateY(0); }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        
+        .modal-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: #fff; }
+        .modal-desc { color: var(--text-muted); margin-bottom: 30px; font-size: 1rem; }
+        
+        .modal-table {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border-top: 1px solid var(--border-color);
+        }
+        .modal-row { display: contents; }
+        .modal-cell {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+        .modal-cell.label {
+            background: rgba(59, 130, 246, 0.05);
+            color: var(--accent-secondary);
+            font-weight: 600;
+            border-right: 1px solid var(--border-color);
+        }
+        .modal-cell.value { color: var(--text-main); line-height: 1.7; }
+        .modal-footer { margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
 
     </style>
 </head>
@@ -302,7 +364,7 @@
         </div>
 
         <div id="exploration" class="tab-content active">
-            <div class="card">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
                 <h3>Selected Role: IT Support with Security Role</h3>
                 <p>While my academic foundation is rooted in multimedia and software development, I am targeting a career in IT Support integrated with security operations.</p>
                 <br>
@@ -356,24 +418,59 @@
         </div>
 
         <div id="evidence" class="tab-content">
+            <div class="gallery-header">
+                <h2>Academic Project Gallery</h2>
+                <p>Click a project card to view its academic description, tools used, evidence, and reflection.</p>
+                
+                <div class="project-filters">
+                    <button class="filter-pill active" onclick="filterGallery('all', this)">All</button>
+                    <button class="filter-pill" onclick="filterGallery('web', this)">Web</button>
+                    <button class="filter-pill" onclick="filterGallery('ui-ux', this)">UI/UX</button>
+                    <button class="filter-pill" onclick="filterGallery('cyber', this)">Cybersecurity</button>
+                    <button class="filter-pill" onclick="filterGallery('media', this)">Media</button>
+                </div>
+            </div>
+
             <div class="card-grid">
-                <div class="card">
-                    <h3>VRED (VR Analysis)</h3>
-                    <p>Developed an immersive behavioral analysis tool utilizing Unity and Blender, deployed for Android-based VR Box hardware. Engineered behavioral metrics to assess user proximity and avoidance frequencies.</p>
+                <div class="card project-card" data-category="media cyber" onclick="openModal('vred')">
+                    <div>
+                        <div class="project-icon">🕶️</div>
+                        <h3>VRED (VR Analysis Tool)</h3>
+                        <p>An immersive behavioral analysis tool specifically deployed for Android-based VR hardware.</p>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Media</span>
+                        <span class="tag">Cybersecurity</span>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Forgotten Island</h3>
-                    <p>Designed a PC-based exploration application and comprehensive 3D animations, mastering keyframe logic, particle systems, and artifact-based data mapping.</p>
+
+                <div class="card project-card" data-category="web ui-ux" onclick="openModal('kias')">
+                    <div>
+                        <div class="project-icon">🌐</div>
+                        <h3>KIAS Digital Preservation</h3>
+                        <p>A digital educational system featuring clean graphic interaction design for complex concept translation.</p>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Web</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>KIAS Preservation</h3>
-                    <p>Developed a digital educational system featuring clean graphic interaction design, showcasing my ability to translate complex concepts into accessible user interfaces.</p>
+
+                <div class="card project-card" data-category="media" onclick="openModal('island')">
+                    <div>
+                        <div class="project-icon">🏝️</div>
+                        <h3>Forgotten Island</h3>
+                        <p>PC-based exploration application utilizing comprehensive 3D animations and particle systems.</p>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Media</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="reflection" class="tab-content">
-            <div class="card">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
                 <h3 style="margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">Target Company: Intel Malaysia (Kulim Campus)</h3>
                 
                 <div class="qa-item">
@@ -400,27 +497,126 @@
 
     </div>
 
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">Close</button>
+            <h2 class="modal-title" id="m-title">Project Title</h2>
+            <p class="modal-desc" id="m-desc">Project Description</p>
+            
+            <div class="modal-table">
+                <div class="modal-row">
+                    <div class="modal-cell label">Tools Used</div>
+                    <div class="modal-cell value" id="m-tools">Tools go here</div>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-cell label">Skills Demonstrated</div>
+                    <div class="modal-cell value" id="m-skills">Skills go here</div>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-cell label">Suggested Evidence</div>
+                    <div class="modal-cell value" id="m-evidence">Links go here</div>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-cell label">Reflection</div>
+                    <div class="modal-cell value" id="m-reflection">Reflection text goes here</div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                Student note: Evidence links would typically route to GitHub repositories or embedded video demonstrations.
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Main Tab Navigation
         function openTab(evt, tabName) {
             let tabContent = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabContent.length; i++) {
                 tabContent[i].style.display = "none";
                 tabContent[i].classList.remove("active");
             }
-
             let tabBtns = document.getElementsByClassName("tab-btn");
             for (let i = 0; i < tabBtns.length; i++) {
                 tabBtns[i].classList.remove("active");
             }
-
             document.getElementById(tabName).style.display = "block";
-            
-            // Add a tiny delay for the animation to reset properly
             setTimeout(() => {
                 document.getElementById(tabName).classList.add("active");
             }, 10);
-            
             evt.currentTarget.classList.add("active");
+        }
+
+        // Project Gallery Filtering
+        function filterGallery(category, btnElement) {
+            // Update active pill
+            let pills = document.getElementsByClassName("filter-pill");
+            for (let i = 0; i < pills.length; i++) {
+                pills[i].classList.remove("active");
+            }
+            btnElement.classList.add("active");
+
+            // Filter cards
+            let cards = document.getElementsByClassName("project-card");
+            for (let i = 0; i < cards.length; i++) {
+                if (category === 'all' || cards[i].getAttribute('data-category').includes(category)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Modal Data & Logic
+        const projectData = {
+            'vred': {
+                title: 'VRED (VR Analysis Project)',
+                desc: 'An immersive behavioral analysis tool developed and deployed specifically for Android-based VR Box hardware.',
+                tools: 'Unity 3D, Blender, C#, Android SDK',
+                skills: 'High-level logical scripting, behavioral metric tracking (proximity and avoidance frequencies), system and hardware optimization.',
+                evidence: 'GitHub Repository Link, Demo Video (MP4), APK File',
+                reflection: 'This project strengthened my understanding of how software logic directly impacts hardware performance. Developing behavioral metrics required a meticulous, systematic approach to debugging—a methodology that translates directly into identifying vulnerabilities and troubleshooting in a security context.'
+            },
+            'kias': {
+                title: 'KIAS Digital Preservation',
+                desc: 'A digital educational system featuring clean graphic interaction design and structured content delivery.',
+                tools: 'Figma, HTML, CSS, JavaScript',
+                skills: 'Graphic interaction design, UI translation of complex concepts, responsive layout structuring.',
+                evidence: 'Live Website URL, UI Mockups, User Flow Diagrams',
+                reflection: 'This project showcased my ability to translate complex concepts into accessible user interfaces. I learned the importance of clear visual hierarchy and user-friendly navigation, skills essential for designing secure, accessible internal IT portals.'
+            },
+            'island': {
+                title: 'Forgotten Island',
+                desc: 'A PC-based exploration application demonstrating advanced 3D environmental mapping and animation.',
+                tools: 'Autodesk Maya, Unity, Particle Systems',
+                skills: 'Keyframe logic programming, artifact-based data mapping, spatial problem solving.',
+                evidence: 'Executable File (.exe), Development Screenshots, Rigging Documentation',
+                reflection: 'Mastering keyframe logic and complex rigging constraints taught me relentless problem-solving and self-education. Building this environment from scratch required the same technical curiosity needed to map and secure enterprise network topographies.'
+            }
+        };
+
+        function openModal(projectId) {
+            const data = projectData[projectId];
+            document.getElementById('m-title').innerText = data.title;
+            document.getElementById('m-desc').innerText = data.desc;
+            document.getElementById('m-tools').innerText = data.tools;
+            document.getElementById('m-skills').innerText = data.skills;
+            document.getElementById('m-evidence').innerText = data.evidence;
+            document.getElementById('m-reflection').innerText = data.reflection;
+            
+            document.getElementById('project-modal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('project-modal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('project-modal');
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
