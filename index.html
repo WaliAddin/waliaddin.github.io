@@ -3,146 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Individual E-Portfolio | IT & Network Security</title>
+    <title>Interactive E-Portfolio | Network Security</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-primary: #10b981; /* Emerald Green */
+            --accent-secondary: #3b82f6; /* Blue */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
-        
-        body {
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+            display: flex;
+            min-height: 100vh;
         }
 
-        header {
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            background-color: var(--bg-card);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+        }
+
+        .profile-section {
             text-align: center;
-            padding: 40px 20px;
-            background: #fff;
+            margin-bottom: 40px;
+        }
+
+        .profile-section h2 {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 15px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab-btn:hover {
+            background-color: #334155;
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-primary);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            padding: 50px;
+            overflow-y: auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--accent-secondary);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--accent-primary);
+            margin: 25px 0 15px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-secondary);
+            transition: transform 0.2s ease;
         }
 
-        h1 { color: var(--primary-color); margin-bottom: 10px; }
-        h2 { color: var(--primary-color); border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; margin-top: 0; }
-        h3 { color: var(--secondary-color); }
-        
-        section {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+        .card:hover {
+            transform: translateX(5px);
         }
 
-        ul { margin-left: 20px; padding-left: 10px; }
-        li { margin-bottom: 10px; }
-        
-        .timeline-container {
-            border-left: 3px solid var(--secondary-color);
-            padding-left: 20px;
-            margin-top: 20px;
+        ul {
+            margin-left: 20px;
+            color: var(--text-muted);
         }
 
-        .project-card {
-            background: #fafafa;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px 20px;
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Interactive Skill Bars */
+        .skill-container {
             margin-bottom: 15px;
-            border-radius: 0 5px 5px 0;
         }
 
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .skill-bar {
+            width: 100%;
+            background-color: #334155;
+            border-radius: 5px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--accent-primary);
+            border-radius: 5px;
+            width: 0; /* Animated via inline style */
+            transition: width 1s ease-in-out;
+        }
+
+        /* QA Accordion */
         .qa-block strong {
             display: block;
-            margin-top: 15px;
-            color: var(--primary-color);
+            margin-top: 20px;
+            color: var(--accent-secondary);
+            font-size: 1.1rem;
+        }
+
+        .qa-block p {
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding-left: 15px;
+            border-left: 2px solid #334155;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Personal Career Development Portfolio</h1>
-        <p><strong>Positioning for a Future Career in Network Security and Related Fields[cite: 1]</strong></p>
-        <p>I am a final-year Bachelor of Information Technology student specializing in Informatic Media at Universiti Sultan Zainal Abidin (UniSZA). As I prepare for my upcoming 2026 industry internship in Sungai Petani, Kedah, this portfolio outlines my strategic transition into secure IT infrastructure and support roles.</p>
-    </header>
-
-    <section id="career-exploration">
-        <h2>1. Career Exploration[cite: 1]</h2>
-        <h3>Selected Role: IT Support with Security Role[cite: 1]</h3>
-        <p>While my academic foundation is rooted in multimedia and software development, I am targeting a career in IT Support integrated with security operations[cite: 1]. IT Support professionals act as the critical first line of defense in modern cybersecurity[cite: 1]. Their responsibilities include managing access controls, ensuring secure endpoint configurations, troubleshooting network anomalies, and escalating security alerts[cite: 1]. My extensive background in diagnosing complex software logic and troubleshooting intricate hardware systems positions me perfectly to handle the analytical demands of modern IT infrastructure.</p>
-    </section>
-
-    <section id="skills-assessment">
-        <h2>2. Personal Skills Assessment[cite: 1]</h2>
-        <h3>Current Technical & Soft Skills[cite: 1]</h3>
-        <ul>
-            <li><strong>Technical Skills[cite: 1]:</strong> Highly proficient in 3D development environments (Unity, Blender, Autodesk Maya) and complex application deployment, specifically targeting Android-based handheld VR Box environments. Extensive practical knowledge of hardware troubleshooting, including deep familiarity with mobile storage technologies (UFS), battery capacity performance, and custom PC component analysis.</li>
-            <li><strong>Soft Skills[cite: 1]:</strong> Strong teamwork and communication abilities, cultivated through coordinating large-scale academic group projects, gathering analytical peer feedback, and collaborating closely with university lecturers.</li>
-        </ul>
-        <h3>Current Skills vs. Industry Requirements[cite: 1]</h3>
-        <p>While I excel in application-level troubleshooting and logic design, the cybersecurity industry requires specialized knowledge in network protocols and threat mitigation[cite: 1]. I am currently actively bridging the gap between generalized IT troubleshooting and specialized network defense.</p>
-    </section>
-
-    <section id="development-plan">
-        <h2>3. Career Development Plan[cite: 1]</h2>
-        <p>To meet and exceed industry expectations, I am focused on mastering the following tools and certifications[cite: 1]:</p>
-        <ul>
-            <li><strong>Certifications[cite: 1]:</strong> CompTIA Security+ (to establish a baseline in defense) and CCNA (to solidify networking fundamentals).</li>
-            <li><strong>Tools to Master[cite: 1]:</strong> Wireshark for deep network packet analysis, Linux for server administration, and Python for automating security protocols.</li>
-        </ul>
-        <div class="timeline-container">
-            <h3>Development Timeline[cite: 1]</h3>
-            <p><strong>Short-Term Goal (2 Years)[cite: 1]:</strong> Secure an IT Support internship and subsequent junior role in the Kedah region. Focus on applying enterprise-level troubleshooting while obtaining my Security+ certification.</p>
-            <p><strong>Long-Term Goal (5 Years)[cite: 1]:</strong> Transition into a dedicated System Administrator or Security Analyst role[cite: 1], specializing in securing enterprise networks and integrating secure practices into multimedia and software development pipelines.</p>
+    <nav>
+        <div class="profile-section">
+            <h2>UniSZA IT Student</h2>
+            <p>Positioning for a Future in Network Security & IT Support</p>
         </div>
-    </section>
+        <button class="tab-btn active" onclick="openTab(event, 'intro')">Overview</button>
+        <button class="tab-btn" onclick="openTab(event, 'exploration')">1. Career Exploration</button>
+        <button class="tab-btn" onclick="openTab(event, 'skills')">2. Skills Assessment</button>
+        <button class="tab-btn" onclick="openTab(event, 'plan')">3. Development Plan</button>
+        <button class="tab-btn" onclick="openTab(event, 'evidence')">4. Evidence of Learning</button>
+        <button class="tab-btn" onclick="openTab(event, 'reflection')">5. Personal Reflection</button>
+    </nav>
 
-    <section id="evidence">
-        <h2>4. Evidence of Learning[cite: 1]</h2>
-        <p>My completed projects demonstrate a strong foundation in structured problem-solving, meticulous documentation, and software lifecycle management[cite: 1]:</p>
-        <div class="project-card">
-            <h4>VRED (Virtual Reality Analysis Project)[cite: 1]</h4>
-            <p>Developed an immersive behavioral analysis tool utilizing Unity and Blender, specifically deployed for Android-based VR Box hardware. Engineered behavioral metrics to assess user proximity and avoidance frequencies, demonstrating high-level logical scripting and system optimization.</p>
+    <main>
+        <div id="intro" class="tab-content active">
+            <h1>Personal Career Portfolio</h1>
+            <div class="card">
+                <p>I am a final-year Bachelor of Information Technology student specializing in Informatic Media at Universiti Sultan Zainal Abidin (UniSZA). As I prepare for my upcoming 2026 industry internship in Sungai Petani, Kedah, this interactive portfolio outlines my strategic transition into secure IT infrastructure and support roles.</p>
+                <p style="margin-top: 15px; color: var(--accent-primary);"><em>Select the tabs on the left to navigate through my career plan.</em></p>
+            </div>
         </div>
-        <div class="project-card">
-            <h4>Forgotten Island & Cleaning the Room[cite: 1]</h4>
-            <p>Designed a PC-based exploration application and comprehensive 3D animations, mastering keyframe logic, particle systems, and artifact-based data mapping.</p>
-        </div>
-        <div class="project-card">
-            <h4>KIAS Digital Preservation[cite: 1]</h4>
-            <p>Developed a digital educational system featuring clean graphic interaction design, showcasing my ability to translate complex concepts into accessible user interfaces.</p>
-        </div>
-    </section>
 
-    <section id="reflection">
-        <h2>5. Personal Reflection[cite: 1]</h2>
-        <h3>Target Company: Intel Malaysia (Kulim Campus)[cite: 1]</h3>
-        <div class="qa-block">
-            <strong>Why do you want to work for this company?[cite: 1]</strong>
-            <p>Given my goal to build a career in the Northern region (Kedah/Penang), Intel represents the pinnacle of technology infrastructure. Their commitment to robust hardware and secure internal networks perfectly aligns with my transition from software interaction to IT security support.</p>
+        <div id="exploration" class="tab-content">
+            <h1>Career Exploration</h1>
+            <h3>Selected Role: IT Support with Security Role</h3>
+            <div class="card">
+                <p>While my academic foundation is rooted in multimedia and software development, I am targeting a career in IT Support integrated with security operations.</p>
+                <br>
+                <p><strong>Relevance to Modern Cybersecurity:</strong> IT Support professionals act as the critical first line of defense. Their responsibilities include managing access controls, ensuring secure endpoint configurations, troubleshooting network anomalies, and escalating security alerts. My extensive background in diagnosing complex software logic and troubleshooting intricate hardware systems positions me perfectly to handle the analytical demands of modern IT infrastructure.</p>
+            </div>
+        </div>
+
+        <div id="skills" class="tab-content">
+            <h1>Personal Skills Assessment</h1>
             
-            <strong>What value can you bring to this company?[cite: 1]</strong>
-            <p>I bring a highly adaptable, logical mindset. My experience building complex VR interactions requires a meticulous, systematic approach to debugging—a methodology that translates directly into identifying network vulnerabilities and troubleshooting enterprise hardware.</p>
-            
-            <strong>Why should we hire you?[cite: 1]</strong>
-            <p>I am a relentless problem solver with a proven track record of self-education. Whether it's mastering complex rigging constraints in Maya, optimizing Android hardware deployments, or independently learning manual motorcycle maintenance, I possess the technical curiosity required to excel in IT support.</p>
-            
-            <strong>What skills make you suitable for this job?[cite: 1]</strong>
-            <p>My foundation in user-focused software development, combined with deep hardware curiosity (from PC builds to mobile storage architecture), ensures I can effectively communicate with end-users while rapidly diagnosing backend technical issues.</p>
-            
-            <strong>What are your strengths and weaknesses?[cite: 1]</strong>
-            <p>My primary strength is technical adaptability and precise attention to detail. My current weakness is a lack of enterprise-grade security experience[cite: 1]; however, my structured career development plan and commitment to earning the Security+ certification demonstrate my proactive approach to overcoming this gap.</p>
-        </div>
-    </section>
+            <h3>Interactive Skills Overview</h3>
+            <div class="card">
+                <div class="skill-container">
+                    <div class="skill-name"><span>3D Development (Unity/Blender)</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill-container">
+                    <div class="skill-name"><span>Hardware Troubleshooting & Diagnostics</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-container">
+                    <div class="skill-name"><span>Teamwork & Communication</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-container">
+                    <div class="skill-name"><span>Networking Protocols (Bridging the gap)</span><span>40%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 40%; background-color: var(--accent-secondary);"></div></div>
+                </div>
+            </div>
 
+            <h3>Current Skills vs. Industry Requirements</h3>
+            <div class="card">
+                <p>While I excel in application-level troubleshooting and logic design, the cybersecurity industry requires specialized knowledge in network protocols and threat mitigation. I am actively bridging the gap between generalized IT troubleshooting and specialized network defense.</p>
+            </div>
+        </div>
+
+        <div id="plan" class="tab-content">
+            <h1>Career Development Plan</h1>
+            <div class="card">
+                <h3>Target Certifications & Tools</h3>
+                <ul>
+                    <li><strong>Certifications:</strong> CompTIA Security+ (baseline defense) and CCNA (networking fundamentals).</li>
+                    <li><strong>Tools to Master:</strong> Wireshark (packet analysis), Linux (server administration), and Python (automation).</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Timeline</h3>
+                <ul>
+                    <li><strong>Short-Term Goal (2 Years):</strong> Secure an IT Support internship and subsequent junior role in the Kedah region. Focus on applying enterprise-level troubleshooting while obtaining the Security+ certification.</li>
+                    <li><strong>Long-Term Goal (5 Years):</strong> Transition into a dedicated System Administrator or Security Analyst role, specializing in securing enterprise networks and integrating secure practices into multimedia pipelines.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="evidence" class="tab-content">
+            <h1>Evidence of Learning</h1>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">My completed projects demonstrate a strong foundation in structured problem-solving and software lifecycle management:</p>
+            
+            <div class="card">
+                <h3>VRED (Virtual Reality Analysis Project)</h3>
+                <p>Developed an immersive behavioral analysis tool utilizing Unity and Blender, specifically deployed for Android-based VR Box hardware. Engineered behavioral metrics to assess user proximity and avoidance frequencies, demonstrating high-level logical scripting.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Forgotten Island & Cleaning the Room</h3>
+                <p>Designed a PC-based exploration application and comprehensive 3D animations, mastering keyframe logic, particle systems, and artifact-based data mapping.</p>
+            </div>
+            
+            <div class="card">
+                <h3>KIAS Digital Preservation</h3>
+                <p>Developed a digital educational system featuring clean graphic interaction design, showcasing my ability to translate complex concepts into accessible user interfaces.</p>
+            </div>
+        </div>
+
+        <div id="reflection" class="tab-content">
+            <h1>Personal Reflection</h1>
+            <h3>Target Company: Intel Malaysia (Kulim Campus)</h3>
+            
+            <div class="card qa-block">
+                <strong>Why do you want to work for this company?</strong>
+                <p>Given my goal to build a career in the Northern region, Intel represents the pinnacle of technology infrastructure. Their commitment to robust hardware and secure internal networks perfectly aligns with my transition from software interaction to IT security support.</p>
+                
+                <strong>What value can you bring to this company?</strong>
+                <p>I bring a highly adaptable, logical mindset. My experience building complex VR interactions requires a meticulous, systematic approach to debugging—a methodology that translates directly into identifying network vulnerabilities and troubleshooting enterprise hardware.</p>
+                
+                <strong>Why should we hire you?</strong>
+                <p>I am a relentless problem solver with a proven track record of self-education. Whether mastering complex rigging constraints, optimizing Android deployments, or independently learning manual motorcycle maintenance, I possess the technical curiosity required to excel in IT support.</p>
+                
+                <strong>What skills make you suitable for this job?</strong>
+                <p>My foundation in user-focused software development, combined with deep hardware curiosity (from PC builds to mobile storage architecture), ensures I can effectively communicate with end-users while rapidly diagnosing backend technical issues.</p>
+                
+                <strong>What are your strengths and weaknesses?</strong>
+                <p>My primary strength is technical adaptability and precise attention to detail. My current weakness is a lack of enterprise-grade security experience; however, my structured career development plan and commitment to earning the Security+ certification demonstrate my proactive approach to overcoming this gap.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            let tabContent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
+
+            // Remove active class from all buttons
+            let tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show current tab and add active class to clicked button
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
