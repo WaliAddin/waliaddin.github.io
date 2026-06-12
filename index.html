@@ -311,7 +311,7 @@
         }
         .modal-cell.value { color: var(--text-main); line-height: 1.7; }
         
-        /* NEW: Styling for Evidence Links inside the modal */
+        /* Styling for Evidence Links inside the modal */
         .evidence-link {
             display: inline-flex;
             align-items: center;
@@ -470,11 +470,12 @@
                     </div>
                 </div>
 
+                <!-- UPDATED KIAS PROJECT CARD -->
                 <div class="card project-card" data-category="web ui-ux" onclick="openModal('kias')">
                     <div>
-                        <div class="project-icon">🌐</div>
-                        <h3>KIAS Digital Preservation</h3>
-                        <p>A digital educational system featuring clean graphic interaction design for complex concept translation.</p>
+                        <div class="project-icon">📖</div>
+                        <h3>KIAS Digital Flashcards</h3>
+                        <p>A specialized educational tool designed to modernize the learning of Malay proverbs (Peribahasa) into a visual-first experience[cite: 2].</p>
                     </div>
                     <div class="tag-container">
                         <span class="tag">Web</span>
@@ -596,32 +597,29 @@
         }
 
         // Modal Data & Logic
-        // NOTE: I replaced plain text with HTML anchor <a> tags in the 'evidence' properties below.
         const projectData = {
             'vred': {
                 title: 'VRED (VR Analysis Project)',
                 desc: 'An immersive behavioral analysis tool developed and deployed specifically for Android-based VR Box hardware.',
                 tools: 'Unity 3D, Blender, C#, Android SDK',
                 skills: 'High-level logical scripting, behavioral metric tracking (proximity and avoidance frequencies), system and hardware optimization.',
-                // Insert your image links inside the href attribute below:
                 evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View Project Screenshot</a> <a href="INSERT_YOUR_VIDEO_LINK_HERE.mp4" target="_blank" class="evidence-link">🎥 View Demo Video</a>',
                 reflection: 'This project strengthened my understanding of how software logic directly impacts hardware performance. Developing behavioral metrics required a meticulous, systematic approach to debugging—a methodology that translates directly into identifying vulnerabilities and troubleshooting in a security context.'
             },
+            // UPDATED KIAS OBJECT BASED ON THE REPORT
             'kias': {
-                title: 'KIAS Digital Preservation',
-                desc: 'A digital educational system featuring clean graphic interaction design and structured content delivery.',
-                tools: 'Figma, HTML, CSS, JavaScript',
-                skills: 'Graphic interaction design, UI translation of complex concepts, responsive layout structuring.',
-                // Insert your image links inside the href attribute below:
-                evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View UI Design Image</a>',
-                reflection: 'This project showcased my ability to translate complex concepts into accessible user interfaces. I learned the importance of clear visual hierarchy and user-friendly navigation, skills essential for designing secure, accessible internal IT portals.'
+                title: 'KIAS Digital Flashcards',
+                desc: 'KIAS is a specialized educational tool designed to modernize the learning of Malay proverbs (Peribahasa)[cite: 2]. It transforms the traditional, text-heavy method of memorization into an engaging, visual-first experience using illustrated digital flashcards[cite: 2].',
+                tools: 'Canva[cite: 2], HTML, CSS, JavaScript',
+                skills: 'Visual storytelling to increase memorization speed[cite: 2], applying Malaysian cultural aesthetics like Songket and Batik motifs[cite: 2], and content curation based on the current KSSM syllabus[cite: 2].',
+                evidence: '<a href="INSERT_COVER_IMAGE_LINK.jpg" target="_blank" class="evidence-link">📷 View Digital Cover</a> <a href="INSERT_FRONT_FACE_LINK.jpg" target="_blank" class="evidence-link">📷 View Front Face</a> <a href="INSERT_BACK_FACE_LINK.jpg" target="_blank" class="evidence-link">📷 View Back Face</a>',
+                reflection: 'KIAS acts as a cultural intervention in the academic space, marrying the timeless wisdom of Malay proverbs with the accessibility of modern digital design[cite: 2]. This project proves that educational tools can be culturally rich, visually stunning, and highly practical simultaneously[cite: 2].'
             },
             'island': {
                 title: 'Forgotten Island',
                 desc: 'A PC-based exploration application demonstrating advanced 3D environmental mapping and animation.',
                 tools: 'Autodesk Maya, Unity, Particle Systems',
                 skills: 'Keyframe logic programming, artifact-based data mapping, spatial problem solving.',
-                // Insert your image links inside the href attribute below:
                 evidence: '<a href="INSERT_YOUR_IMAGE_LINK_HERE.jpg" target="_blank" class="evidence-link">📷 View 3D Render Image</a>',
                 reflection: 'Mastering keyframe logic and complex rigging constraints taught me relentless problem-solving and self-education. Building this environment from scratch required the same technical curiosity needed to map and secure enterprise network topographies.'
             }
@@ -634,7 +632,6 @@
             document.getElementById('m-tools').innerText = data.tools;
             document.getElementById('m-skills').innerText = data.skills;
             
-            // NOTE: Changed from innerText to innerHTML to render the clickable <a> tags
             document.getElementById('m-evidence').innerHTML = data.evidence;
             
             document.getElementById('m-reflection').innerText = data.reflection;
