@@ -11,7 +11,7 @@
             /* Blue Theme Colors */
             --bg-base: #050b14;
             --bg-surface: #0a1324;
-            --bg-card: #111e36;
+            --bg-card: rgba(17, 30, 54, 0.7); /* Slightly more transparent for live BG */
             --accent-primary: #3b82f6; /* Bright Blue */
             --accent-glow: rgba(59, 130, 246, 0.4);
             --accent-secondary: #60a5fa; /* Light Blue */
@@ -33,7 +33,19 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            /* Keep a subtle base gradient under the live canvas */
             background-image: radial-gradient(circle at top right, #0d1b2a 0%, var(--bg-base) 40%);
+        }
+
+        /* --- LIVE BACKGROUND CANVAS --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none; /* Let clicks pass through to the page */
         }
 
         /* Top Navigation */
@@ -42,8 +54,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            background: rgba(10, 19, 36, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 19, 36, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -105,6 +118,8 @@
         /* Tech/Networking Dashboard Element */
         .system-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 30px;
@@ -120,6 +135,7 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 40px var(--accent-glow);
             border-color: var(--accent-primary);
+            background: rgba(17, 30, 54, 0.85);
         }
 
         .system-header {
@@ -246,7 +262,8 @@
         }
 
         .tab-btn {
-            background: var(--bg-surface);
+            background: rgba(10, 19, 36, 0.7);
+            backdrop-filter: blur(5px);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
             padding: 10px 24px;
@@ -273,7 +290,9 @@
         }
 
         .card {
-            background: linear-gradient(180deg, rgba(17, 30, 54, 0.8) 0%, rgba(10, 19, 36, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(17, 30, 54, 0.6) 0%, rgba(10, 19, 36, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 30px;
@@ -288,7 +307,7 @@
         /* Interactive Skill Bars */
         .skill-container { margin-bottom: 20px; }
         .skill-name { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;}
-        .skill-bar { width: 100%; background: #1e293b; border-radius: 10px; height: 8px; overflow: hidden; }
+        .skill-bar { width: 100%; background: rgba(30, 41, 59, 0.6); border-radius: 10px; height: 8px; overflow: hidden; }
         .skill-progress { height: 100%; background: var(--accent-primary); border-radius: 10px; transition: width 1.5s ease-in-out; box-shadow: 0 0 10px var(--accent-primary); }
 
         /* QA Block */
@@ -303,7 +322,8 @@
         
         .project-filters { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .filter-pill {
-            background: transparent;
+            background: rgba(10, 19, 36, 0.5);
+            backdrop-filter: blur(5px);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
             padding: 6px 16px;
@@ -313,7 +333,7 @@
             transition: all 0.2s;
         }
         .filter-pill:hover { border-color: var(--accent-secondary); color: var(--text-main); }
-        .filter-pill.active { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(59, 130, 246, 0.1); }
+        .filter-pill.active { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(59, 130, 246, 0.15); }
 
         /* Clickable Project Cards */
         .project-card { cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
@@ -321,10 +341,11 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow);
             border-color: var(--accent-primary);
+            background: linear-gradient(180deg, rgba(17, 30, 54, 0.8) 0%, rgba(10, 19, 36, 0.95) 100%);
         }
         .project-icon { font-size: 2.5rem; text-align: center; margin-bottom: 20px; color: var(--accent-primary); }
         .tag-container { display: flex; gap: 8px; margin-top: 20px; }
-        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border-color); color: var(--accent-secondary); }
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border-color); color: var(--accent-secondary); background: rgba(59, 130, 246, 0.05); }
 
         /* Modal Styles */
         .modal-overlay {
@@ -391,7 +412,6 @@
         }
         .modal-cell.value { color: var(--text-main); line-height: 1.7; }
         
-        /* Styling for Evidence Links inside the modal */
         .evidence-link {
             display: inline-flex;
             align-items: center;
@@ -417,6 +437,9 @@
 </head>
 <body>
 
+    <!-- LIVE BACKGROUND CANVAS -->
+    <canvas id="bg-canvas"></canvas>
+
     <nav>
         <div class="logo">IT & SEC PORTFOLIO</div>
     </nav>
@@ -439,7 +462,6 @@
                 <div class="circle circle-1"></div>
                 <div class="circle circle-2"></div>
                 <div class="circle circle-3">
-                    <!-- Replace the data= URL with your actual LinkedIn URL -->
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.linkedin.com" alt="QR Code" class="qr-code">
                     SCAN
                 </div>
@@ -645,6 +667,76 @@
     </div>
 
     <script>
+        // --- LIVE BACKGROUND NETWORK EFFECT ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            
+            // Adjust particle count based on screen size
+            const numParticles = Math.floor((width * height) / 12000);
+            
+            for (let i = 0; i < numParticles; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.6, // Slow drifting speed
+                    vy: (Math.random() - 0.5) * 0.6,
+                    radius: Math.random() * 1.5 + 0.5
+                });
+            }
+        }
+
+        function animateCanvas() {
+            requestAnimationFrame(animateCanvas);
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Bounce off edges
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                // Draw Particle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.5)'; // Accent primary color
+                ctx.fill();
+
+                // Connect particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dx = p.x - p2.x;
+                    let dy = p.y - p2.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) { // Connection threshold
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.2 - dist/600})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateCanvas();
+
+        // --- UI SCRIPTS ---
+
         // Main Tab Navigation
         function openTab(evt, tabName) {
             let tabContent = document.getElementsByClassName("tab-content");
