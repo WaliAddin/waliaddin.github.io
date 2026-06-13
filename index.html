@@ -102,7 +102,7 @@
             margin-bottom: 30px;
         }
 
-        /* Tech/System Dashboard Element */
+        /* Tech/Networking Dashboard Element */
         .system-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -112,16 +112,45 @@
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+            border-color: var(--accent-primary);
         }
 
         .system-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-size: 0.75rem;
             color: var(--accent-primary);
             letter-spacing: 2px;
             margin-bottom: 30px;
             text-transform: uppercase;
+        }
+
+        /* Pulse indicator for online status */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981; /* Emerald Green */
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
         .system-circles {
@@ -134,9 +163,33 @@
         }
 
         .circle { position: absolute; border-radius: 50%; border: 1px solid var(--border-color); }
-        .circle-1 { width: 140px; height: 140px; border-top-color: var(--accent-primary); animation: spin 4s linear infinite; }
-        .circle-2 { width: 100px; height: 100px; border-right-color: var(--accent-secondary); animation: spin 3s linear infinite reverse; }
-        .circle-3 { width: 60px; height: 60px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;}
+        .circle-1 { width: 150px; height: 150px; border-top-color: var(--accent-primary); animation: spin 5s linear infinite; }
+        .circle-2 { width: 110px; height: 110px; border-right-color: var(--accent-secondary); border-left-color: var(--accent-primary); animation: spin 3s linear infinite reverse; }
+        
+        .circle-3 { 
+            width: 80px; 
+            height: 80px; 
+            background: var(--bg-surface); 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.5rem; 
+            font-weight: 800;
+            border: 1px solid var(--accent-primary);
+            box-shadow: inset 0 0 15px var(--accent-glow);
+            z-index: 10;
+            color: var(--text-main);
+            gap: 4px;
+        }
+
+        .qr-code {
+            width: 40px;
+            height: 40px;
+            background: white;
+            padding: 2px;
+            border-radius: 4px;
+        }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
@@ -145,10 +198,37 @@
             justify-content: space-between;
             border-top: 1px solid var(--border-color);
             padding-top: 20px;
+            gap: 15px;
         }
 
-        .stat-item h4 { font-size: 0.8rem; color: var(--text-muted); }
-        .stat-item p { font-size: 1.2rem; font-weight: bold; color: var(--text-main); }
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-item h4 { 
+            font-size: 0.65rem; 
+            color: var(--text-muted); 
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-item p { 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            color: var(--text-main); 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .linkedin-link {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .linkedin-link:hover {
+            color: var(--accent-primary);
+        }
 
         /* Main Content & Tabs */
         .portfolio-section {
@@ -349,26 +429,38 @@
         
         <div class="system-card">
             <div class="system-header">
-                <span>System Ready</span>
-                <span>Online</span>
+                <span>CONNECT WITH ME</span>
+                <span class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    AVAILABLE FOR OPPORTUNITIES
+                </span>
             </div>
             <div class="system-circles">
                 <div class="circle circle-1"></div>
                 <div class="circle circle-2"></div>
-                <div class="circle circle-3">SECURE</div>
+                <div class="circle circle-3">
+                    <!-- Replace the data= URL with your actual LinkedIn URL -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.linkedin.com" alt="QR Code" class="qr-code">
+                    SCAN
+                </div>
             </div>
             <div class="system-stats">
-                <div class="stat-item">
-                    <h4>MODULES</h4>
-                    <p>05 Loaded</p>
+                <div class="stat-item" style="flex: 0.8;">
+                    <h4>PROFILES ACTIVE</h4>
+                    <a href="#" target="_blank" class="linkedin-link">
+                        <p>
+                            <svg fill="currentColor" viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LinkedIn
+                        </p>
+                    </a>
                 </div>
-                <div class="stat-item">
-                    <h4>LATENCY</h4>
-                    <p>12ms</p>
+                <div class="stat-item" style="flex: 1.1;">
+                    <h4>RESPONSE TIME</h4>
+                    <p>Replies within 24h</p>
                 </div>
-                <div class="stat-item">
-                    <h4>STATUS</h4>
-                    <p style="color: var(--accent-primary);">Stable</p>
+                <div class="stat-item" style="flex: 1.3;">
+                    <h4>COLLABORATION STATUS</h4>
+                    <p style="color: var(--accent-primary);">Open to Internships / Projects</p>
                 </div>
             </div>
         </div>
@@ -470,7 +562,6 @@
                     </div>
                 </div>
 
-                <!-- UPDATED KIAS PROJECT CARD -->
                 <div class="card project-card" data-category="web ui-ux" onclick="openModal('kias')">
                     <div>
                         <div class="project-icon">📖</div>
@@ -574,14 +665,12 @@
 
         // Project Gallery Filtering
         function filterGallery(category, btnElement) {
-            // Update active pill
             let pills = document.getElementsByClassName("filter-pill");
             for (let i = 0; i < pills.length; i++) {
                 pills[i].classList.remove("active");
             }
             btnElement.classList.add("active");
 
-            // Filter cards
             let cards = document.getElementsByClassName("project-card");
             for (let i = 0; i < cards.length; i++) {
                 if (category === 'all' || cards[i].getAttribute('data-category').includes(category)) {
@@ -602,7 +691,6 @@
                 evidence: '<a href="https://tinyurl.com/2rcepevh" target="_blank" class="evidence-link">📷 View Project Screenshot</a> <a href="https://tinyurl.com/2rcepevh" target="_blank" class="evidence-link">🎥 View Demo Video</a>',
                 reflection: 'This project strengthened my understanding of how software logic directly impacts hardware performance. Developing behavioral metrics required a meticulous, systematic approach to debugging—a methodology that translates directly into identifying vulnerabilities and troubleshooting in a security context.'
             },
-            // UPDATED KIAS OBJECT BASED ON THE REPORT
             'kias': {
                 title: 'KIAS Digital Flashcards',
                 desc: 'KIAS is a specialized educational tool designed to modernize the learning of Malay proverbs (Peribahasa). It transforms the traditional, text-heavy method of memorization into an engaging, visual-first experience using illustrated digital flashcards.',
@@ -627,11 +715,8 @@
             document.getElementById('m-desc').innerText = data.desc;
             document.getElementById('m-tools').innerText = data.tools;
             document.getElementById('m-skills').innerText = data.skills;
-            
             document.getElementById('m-evidence').innerHTML = data.evidence;
-            
             document.getElementById('m-reflection').innerText = data.reflection;
-            
             document.getElementById('project-modal').classList.add('show');
         }
 
